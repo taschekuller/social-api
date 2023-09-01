@@ -3,18 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
 
-console.log('MongoDB Connection String:', process.env.MONGODB_CONNECTION_STRING);
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Load environment variables
-    MongooseModule.forRootAsync({
-      useFactory: () => ({
-        uri: process.env.MONGODB_CONNECTION_STRING,
-      }),
-    }),
-  ],
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB_CONNECTION_STRING), UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
